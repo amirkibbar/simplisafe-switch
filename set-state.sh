@@ -38,7 +38,7 @@ $script_dir/get-state.sh $auth_file | while read subscription_state; do
 	fi
 
 	bearer_header="Authorization: Bearer $access_token"
-	curl -s -v -H "$bearer_header" -H "content-type: application/json" \
+	curl -s -H "$bearer_header" -H "content-type: application/json" \
 		-d "{\"state\": \"$target_state\"}" $API_URL/ss3/subscriptions/$sid/state/$lower_case_target_state
 done
 

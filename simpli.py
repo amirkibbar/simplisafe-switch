@@ -56,6 +56,22 @@ async def turn_system_off():
     print('System is in mode {}, ignoring turn off request'.format(curr_state))
 
 
+async def print_sensors_status():
+  system = await get_system()
+  for serial, sensor in system.sensors.items():
+    await sensor.update(cached=True)
+    if sensor.type.name != 'keypad' and sensor.type.name != 'keychain':
+      status = 'closed'
+      if sensor.triggered and sensor.type.name == 'entry':
+        status = 'open'  
+      elif sensor.triggered:
+        status = 'triggered'
+      elif sensor.type.name != 'entry':
+        status = "not triggered"
+
+      print('Sensor {} ({}) is {}'.format(sensor.name, sensor.type.name, status))
+
+
 @click.group()
 def cli():
   pass
@@ -70,6 +86,11 @@ def turn_on(mode):
 @cli.command()
 def turn_off():
   asyncio.run(turn_system_off())
+
+
+@cli.command()
+def sensors_status():
+  asyncio.run(print_sensors_status())
 
 
 if __name__ == '__main__':

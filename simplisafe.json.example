@@ -1,5 +1,0 @@
-{
-  "username": "my.email@example.com",
-  "password": "my-password-in-plain-text-here",
-  "client_id": "uuid-of-client-see-MFA-instructions"
-}

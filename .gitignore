@@ -1,2 +1,4 @@
 simplisafe.json
 .switch
+.venv
+.simplisafe-auth.json
